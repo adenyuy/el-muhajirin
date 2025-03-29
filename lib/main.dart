@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'screens/splash_screen.dart'; // Pastikan path benar
 import 'home.dart';
 import 'calendar.dart';
 import 'prayer.dart';
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: MainPage(),
+      home: SplashScreen(), // SplashScreen pertama kali muncul
     );
   }
 }
@@ -43,9 +44,9 @@ class _MainPageState extends State<MainPage> {
             _currentIndex = index;
           });
         },
-        selectedItemColor: Color(0xFF41966F), // Warna hijau saat dipilih
-        unselectedItemColor: Color(0xFF41966F), // Warna hijau tetap menyala saat tidak dipilih
-        showUnselectedLabels: true, // Memastikan label tetap terlihat
+        selectedItemColor: Color(0xFF41966F), 
+        unselectedItemColor: Color(0xFF41966F), 
+        showUnselectedLabels: true, 
         items: [
           BottomNavigationBarItem(icon: Image.asset("assets/images/home-icon.png", width: 24), label: "Home"),
           BottomNavigationBarItem(icon: Image.asset("assets/images/calendar-icon.png", width: 24), label: "Calendar"),
