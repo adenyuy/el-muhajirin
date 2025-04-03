@@ -16,6 +16,7 @@ class _PrayerPageState extends State<PrayerPage> {
     {"name": "Asr", "time": "15.14", "icon": "assets/images/duhr-asr-icon.png"},
     {"name": "Maghrib", "time": "18.05", "icon": "assets/images/maghrib-icon.png"},
     {"name": "Isha’a", "time": "19.14", "icon": "assets/images/ishaa-icon.png"},
+    {"name": "Tarawih", "time": "19.24", "icon": "assets/images/ishaa-icon.png"},
   ];
 
   @override
@@ -53,18 +54,21 @@ class _PrayerPageState extends State<PrayerPage> {
               children: List.generate(7, (index) {
                 String day = ["MIN", "SEN", "SEL", "RAB", "KAM", "JUM", "SAB"][index];
                 String date = (23 + index).toString();
-                return GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      selectedDate = "$date Maret, 2025";
-                      prayerTimes = _getPrayerTimesForDate();
-                    });
-                  },
-                  child: Column(
-                    children: [
-                      Text(day, style: TextStyle(color: Colors.white)),
-                      Text(date, style: TextStyle(color: Colors.white)),
-                    ],
+                return MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedDate = "$date Maret, 2025";
+                        prayerTimes = _getPrayerTimesForDate();
+                      });
+                    },
+                    child: Column(
+                      children: [
+                        Text(day, style: TextStyle(color: Colors.white)),
+                        Text(date, style: TextStyle(color: Colors.white)),
+                      ],
+                    ),
                   ),
                 );
               }),
@@ -91,13 +95,48 @@ class _PrayerPageState extends State<PrayerPage> {
   }
 
   Widget _buildPrayerCard(String iconPath, String prayerName, String prayerTime) {
-    return Card(
-      margin: EdgeInsets.symmetric(vertical: 8),
-      child: ListTile(
-        leading: Image.asset(iconPath, width: 40, height: 40),
-        title: Text(prayerName),
-        trailing: Text(prayerTime),
+    return GestureDetector(
+      onTap: () {
+        _showPrayerDetailsDialog(iconPath, prayerName, prayerTime);
+      },
+      child: Card(
+        margin: EdgeInsets.symmetric(vertical: 8),
+        child: ListTile(
+          leading: Image.asset(iconPath, width: 40, height: 40),
+          title: Text(prayerName),
+          trailing: Text(prayerTime),
+        ),
       ),
+    );
+  }
+
+  void _showPrayerDetailsDialog(String iconPath, String prayerName, String prayerTime) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Center (child: Text(prayerName)),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: [
+                Image.asset(iconPath, width: 40, height: 40),
+                SizedBox(height: 10),
+                Text("Tanggal: $selectedDate"),
+                Text("Waktu: $prayerTime"),
+                Text("Imam: Habib Ja'far"),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              child: Text("Tutup"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

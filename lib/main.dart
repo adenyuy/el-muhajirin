@@ -4,6 +4,7 @@ import 'home.dart';
 import 'calendar.dart';
 import 'prayer.dart';
 import 'others.dart';
+import 'news.dart'; // Import the news.dart file
 
 void main() {
   runApp(MyApp());
@@ -15,6 +16,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: SplashScreen(), // SplashScreen pertama kali muncul
+      routes: {
+        '/home': (context) => MainPage(), // Route to MainPage
+        '/news': (context) => NewsPage(title: 'News Title'), // Route to NewsPage
+      },
     );
   }
 }
@@ -44,9 +49,9 @@ class _MainPageState extends State<MainPage> {
             _currentIndex = index;
           });
         },
-        selectedItemColor: Color(0xFF41966F), 
-        unselectedItemColor: Color(0xFF41966F), 
-        showUnselectedLabels: true, 
+        selectedItemColor: Color(0xFF41966F),
+        unselectedItemColor: Color(0xFF41966F),
+        showUnselectedLabels: true,
         items: [
           BottomNavigationBarItem(icon: Image.asset("assets/images/home-icon.png", width: 24), label: "Home"),
           BottomNavigationBarItem(icon: Image.asset("assets/images/calendar-icon.png", width: 24), label: "Calendar"),
