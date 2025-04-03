@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'booking_form.dart'; // Import halaman booking
 
 class CalendarPage extends StatelessWidget {
   const CalendarPage({super.key});
@@ -162,19 +163,31 @@ class CalendarPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
 
-                // Booking Aula
-                const Text.rich(
-                  TextSpan(
-                    text: "Ingin menggunakan aula masjid? Booking ",
-                    style: TextStyle(fontSize: 14),
-                    children: [
-                      TextSpan(
-                        text: "disini",
+                // Booking Aula dengan GestureDetector
+                Row(
+                  children: [
+                    const Text(
+                      "Ingin menggunakan aula masjid? Booking ",
+                      style: TextStyle(fontSize: 14),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const BookingFormPage()),
+                        );
+                      },
+                      child: const Text(
+                        "disini",
                         style: TextStyle(
-                            color: Colors.purple, fontWeight: FontWeight.bold),
+                          color: Colors.purple,
+                          fontWeight: FontWeight.bold,
+                          decoration: TextDecoration.underline,
+                        ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 16),
 
