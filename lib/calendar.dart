@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'booking_form.dart'; // Import halaman booking
+import 'jadwal_takjil.dart';
+import 'zakat_page.dart';
 
 class CalendarPage extends StatelessWidget {
   const CalendarPage({super.key});
@@ -9,75 +11,136 @@ class CalendarPage extends StatelessWidget {
       context: context,
       builder: (context) {
         return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              gradient: const LinearGradient(
-                colors: [Color(0xFFB39DDB), Color(0xFF7E57C2)],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
+          backgroundColor: Colors.transparent,
+          insetPadding: const EdgeInsets.all(20),
+          child: Stack(
+            alignment: Alignment.topCenter,
+            children: [
+              Container(
+                margin: const EdgeInsets.only(top: 50),
+                padding: const EdgeInsets.fromLTRB(20, 60, 20, 20),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(25),
+                  gradient: LinearGradient(
+                    colors: [
+                      Colors.deepPurple.shade400,
+                      Colors.purple.shade200
+                    ],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.15),
+                      blurRadius: 15,
+                      offset: const Offset(0, 8),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text(
+                      "Spesial Ramadhan",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 1.2,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+
+                    // Jadwal Takzil Button
+                    _glassButton(
+                      icon: Icons.fastfood,
+                      label: "Jadwal Takzil",
+                      onTap: () {
+                        Navigator.pop(context); // Tutup dialog dulu
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const JadwalTakjilPage()),
+                        );
+                      },
+                    ),
+
+                    const SizedBox(height: 12),
+
+                    // Zakat Button
+                    _glassButton(
+                      icon: Icons.volunteer_activism,
+                      label: "Zakat",
+                      onTap: () {
+                        Navigator.pop(context); // Tutup dialog dulu
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const ZakatPage()),
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: IconButton(
-                    icon: const Icon(Icons.close, color: Colors.white),
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                ),
-                const Text(
-                  "Silakan Pilih Menu",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 16),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
+
+              // Top Icon
+              CircleAvatar(
+                radius: 50,
+                backgroundColor: Colors.white,
+                child: Icon(Icons.star, color: Colors.deepPurple, size: 50),
+              ),
+
+              // Close Button
+              Positioned(
+                top: 10,
+                right: 10,
+                child: GestureDetector(
+                  onTap: () => Navigator.pop(context),
+                  child: const CircleAvatar(
+                    radius: 18,
                     backgroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 12, horizontal: 24),
-                  ),
-                  onPressed: () {},
-                  child: const Text(
-                    "Jadwal Takzil",
-                    style: TextStyle(color: Colors.deepPurple, fontSize: 16),
+                    child: Icon(Icons.close, color: Colors.deepPurple),
                   ),
                 ),
-                const SizedBox(height: 12),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 12, horizontal: 24),
-                  ),
-                  onPressed: () {},
-                  child: const Text(
-                    "Zakat",
-                    style: TextStyle(color: Colors.deepPurple, fontSize: 16),
-                  ),
-                ),
-                const SizedBox(height: 16),
-              ],
-            ),
+              ),
+            ],
           ),
         );
       },
+    );
+  }
+
+  Widget _glassButton(
+      {required IconData icon,
+      required String label,
+      required VoidCallback onTap}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 20),
+        decoration: BoxDecoration(
+          color: Colors.white.withOpacity(0.15),
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: Colors.white.withOpacity(0.3)),
+        ),
+        child: Row(
+          children: [
+            Icon(icon, color: Colors.white),
+            const SizedBox(width: 12),
+            Text(
+              label,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            const Spacer(),
+            const Icon(Icons.arrow_forward_ios, color: Colors.white, size: 16),
+          ],
+        ),
+      ),
     );
   }
 
