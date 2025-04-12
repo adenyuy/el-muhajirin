@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'news.dart';
 
+/// The main Home Page widget displayed when the app loads.
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
 
+/// State class for HomePage, manages the UI and interaction logic.
 class _HomePageState extends State<HomePage> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
@@ -27,6 +29,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  /// Builds the header section including background and payment card
   Widget _buildHeader() {
     return Stack(
       children: [
@@ -59,6 +62,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  /// Creates the payment card UI that shows donation info
   Widget _buildPaymentCard() {
     return Container(
       margin: EdgeInsets.only(top: 130, left: 16, right: 16),
@@ -84,6 +88,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  /// Builds the mosque icon inside a styled container
   Widget _buildIconContainer() {
     return Container(
       width: 60,
@@ -93,6 +98,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  /// Displays mosque name and address information
   Widget _buildMasjidInfo() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -103,11 +109,12 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  /// Displays the donation date and total amount
   Widget _buildPaymentDetails() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text("24 Maret 2025", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white)),
+        Text("23 Maret 2025", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white)),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
           decoration: BoxDecoration(color: Colors.white.withOpacity(0.2), borderRadius: BorderRadius.circular(20)),
@@ -117,6 +124,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  /// Builds the motivational quote section
   Widget _buildQuoteSection() {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.0),
@@ -131,7 +139,12 @@ class _HomePageState extends State<HomePage> {
             children: [
               Image.asset("assets/images/quote-logos.png", width: 60, height: 60),
               SizedBox(width: 20),
-              Expanded(child: Text("Barangsiapa yang mencintai masjid, maka Allah mencintainya.", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white))),
+              Expanded(
+                child: Text(
+                  "Barangsiapa yang mencintai masjid, maka Allah mencintainya.",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                ),
+              ),
             ],
           ),
         ),
@@ -139,13 +152,14 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  /// Builds the news section with navigation controls
   Widget _buildNewsSection() {
     return Padding(
       padding: EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Berita Kegiatan", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          Text("Berita Kegiatan", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
           SizedBox(height: 10),
           Stack(
             children: [
@@ -156,25 +170,31 @@ class _HomePageState extends State<HomePage> {
                   controller: _pageController,
                   onPageChanged: (index) => setState(() => _currentPage = index),
                   children: [
-                    _buildNewsItem("assets/images/berita-1.png", "Judul Berita 1"),
+                    _buildNewsItem("assets/images/berita-1.png", "Kegiatan Buka Puasa Bersama 23 Maret 2025"),
                     _buildNewsItem("assets/images/berita-2.png", "Judul Berita 2"),
                   ],
                 ),
               ),
+              // Back button
               Positioned(
                 left: 0,
                 top: 70,
                 child: IconButton(
                   icon: Image.asset("assets/images/back-icon.png", width: 24, height: 24),
-                  onPressed: _currentPage > 0 ? () => _pageController.previousPage(duration: Duration(milliseconds: 300), curve: Curves.easeInOut) : null,
+                  onPressed: _currentPage > 0
+                      ? () => _pageController.previousPage(duration: Duration(milliseconds: 300), curve: Curves.easeInOut)
+                      : null,
                 ),
               ),
+              // Next button
               Positioned(
                 right: 0,
                 top: 70,
                 child: IconButton(
                   icon: Image.asset("assets/images/next-icon.png", width: 24, height: 24),
-                  onPressed: _currentPage < 1 ? () => _pageController.nextPage(duration: Duration(milliseconds: 300), curve: Curves.easeInOut) : null,
+                  onPressed: _currentPage < 1
+                      ? () => _pageController.nextPage(duration: Duration(milliseconds: 300), curve: Curves.easeInOut)
+                      : null,
                 ),
               ),
             ],
@@ -184,13 +204,11 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  /// Creates a clickable news item that navigates to NewsPage
   Widget _buildNewsItem(String imagePath, String title) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => NewsPage(title: title)),
-        );
+        Navigator.push(context, MaterialPageRoute(builder: (context) => NewsPage(title: title)));
       },
       child: MouseRegion(
         cursor: SystemMouseCursors.click,
@@ -202,10 +220,7 @@ class _HomePageState extends State<HomePage> {
                 width: double.infinity,
                 height: 150,
                 decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(imagePath),
-                    fit: BoxFit.cover,
-                  ),
+                  image: DecorationImage(image: AssetImage(imagePath), fit: BoxFit.cover),
                 ),
               ),
               Positioned(
@@ -218,11 +233,7 @@ class _HomePageState extends State<HomePage> {
                     color: Colors.black54,
                     borderRadius: BorderRadius.vertical(bottom: Radius.circular(12)),
                   ),
-                  child: Text(
-                    title,
-                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  ),
+                  child: Text(title, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold), textAlign: TextAlign.center),
                 ),
               ),
             ],
@@ -232,33 +243,24 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildNavigationButtons() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        IconButton(
-          icon: Image.asset("assets/images/back-icon.png", width: 24, height: 24),
-          onPressed: _currentPage > 0 ? () => _pageController.previousPage(duration: Duration(milliseconds: 300), curve: Curves.easeInOut) : null,
-        ),
-        IconButton(
-          icon: Image.asset("assets/images/next-icon.png", width: 24, height: 24),
-          onPressed: _currentPage < 1 ? () => _pageController.nextPage(duration: Duration(milliseconds: 300), curve: Curves.easeInOut) : null,
-        ),
-      ],
-    );
-  }
-
+  /// Opens the donation popup showing monthly expense list
   void _showDonationPopup(BuildContext context) {
     showDialog(
       context: context,
       builder: (context) => Dialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-        child: SingleChildScrollView(child: Container(padding: EdgeInsets.all(20), child: DonationList())),
+        child: SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.all(20),
+            child: DonationList(),
+          ),
+        ),
       ),
     );
   }
 }
 
+/// Widget that displays a list of donations per month, including expenses and ending balance.
 class DonationList extends StatefulWidget {
   @override
   _DonationListState createState() => _DonationListState();
@@ -266,14 +268,21 @@ class DonationList extends StatefulWidget {
 
 class _DonationListState extends State<DonationList> {
   List<bool> _isExpanded = List.generate(12, (index) => false);
-  List<String> months = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
-  final double startingBalance = 1000000;
+  List<String> months = [
+    "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+    "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+  ];
+
+  final double startingBalance = 3000000;
+
+  /// Static list of expense categories and amounts
   final List<Map<String, double>> expenses = [
     {"Listrik": 400000},
     {"Air": 200000},
     {"Biaya Operasional": 100000},
   ];
 
+  /// Calculates ending balance by subtracting expenses from the starting balance
   double calculateEndingBalance() => startingBalance - expenses.fold(0, (sum, expense) => sum + expense.values.first);
 
   @override
@@ -288,7 +297,11 @@ class _DonationListState extends State<DonationList> {
         SizedBox(height: 20),
         Center(
           child: ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF41966F), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)), padding: EdgeInsets.symmetric(horizontal: 30, vertical: 12)),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Color(0xFF41966F),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              padding: EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+            ),
             onPressed: () => Navigator.of(context).pop(),
             child: Text("Tutup", style: TextStyle(color: Colors.white)),
           ),
@@ -297,6 +310,7 @@ class _DonationListState extends State<DonationList> {
     );
   }
 
+  /// Builds a row for each month, expandable to show detailed expenses
   Widget _buildMonthRow(int index) {
     return Column(
       children: [
@@ -322,12 +336,17 @@ class _DonationListState extends State<DonationList> {
     );
   }
 
+  /// Displays detailed expense breakdown and balances
   Widget _buildExpenseDetails() {
     return Padding(
       padding: const EdgeInsets.only(left: 16.0, top: 8.0, bottom: 8.0),
       child: Container(
         padding: EdgeInsets.all(12),
-        decoration: BoxDecoration(color: Colors.lightGreen.withOpacity(0.1), borderRadius: BorderRadius.circular(8), border: Border.all(color: Colors.green.withOpacity(0.3))),
+        decoration: BoxDecoration(
+          color: Colors.lightGreen.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(color: Colors.green.withOpacity(0.3)),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -348,6 +367,7 @@ class _DonationListState extends State<DonationList> {
     );
   }
 
+  /// Utility to show label and amount rows for balance
   Widget _buildBalanceRow(String label, double amount) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -358,6 +378,7 @@ class _DonationListState extends State<DonationList> {
     );
   }
 
+  /// Creates a single row for an expense item
   Widget _buildExpenseRow(Map<String, double> expense) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
