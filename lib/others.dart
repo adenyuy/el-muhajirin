@@ -1,6 +1,20 @@
 import 'package:flutter/material.dart';
 
-class OthersPage extends StatelessWidget {
+class OthersPage extends StatefulWidget {
+  @override
+  _OthersPageState createState() => _OthersPageState();
+}
+
+class _OthersPageState extends State<OthersPage> {
+  @override
+  void initState() {
+    super.initState();
+    // Show the modal after the first frame is rendered
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _showSelectionModal(context);
+    });
+  }
+
   void _showSelectionModal(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -66,15 +80,6 @@ class OthersPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: ElevatedButton(
-        onPressed: () => _showSelectionModal(context),
-        child: Text("Pilih Menu Lain"),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Color(0xFF41966F),
-          foregroundColor: Colors.white,
-        ),
-      ),
-    );
+    return const SizedBox.shrink(); // halaman kosong, gak nampilin apa-apa
   }
 }

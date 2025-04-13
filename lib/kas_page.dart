@@ -11,7 +11,7 @@ class KasPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    num saldo = kasData.fold(0, (total, item) => total + item['jumlah'] as num);
+    num saldo = kasData.fold(0, (total, item) => total + item['jumlah']);
 
     return Scaffold(
       appBar: AppBar(title: Text("Kas")),
