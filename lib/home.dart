@@ -170,7 +170,7 @@ class _HomePageState extends State<HomePage> {
                   controller: _pageController,
                   onPageChanged: (index) => setState(() => _currentPage = index),
                   children: [
-                    _buildNewsItem("assets/images/berita-1.png", "Kegiatan Buka Puasa Bersama 23 Maret 2025"),
+                    _buildNewsItem("assets/images/gambar-berita.jpg", "Kegiatan Buka Puasa Bersama 23 Maret 2025"),
                     _buildNewsItem("assets/images/berita-2.png", "Judul Berita 2"),
                   ],
                 ),

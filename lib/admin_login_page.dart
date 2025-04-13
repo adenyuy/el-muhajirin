@@ -1,8 +1,25 @@
 import 'package:flutter/material.dart';
+import 'admin_dashboard.dart';
 
 class AdminLoginPage extends StatelessWidget {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
+  void _handleLogin(BuildContext context) {
+    final username = usernameController.text;
+    final password = passwordController.text;
+
+    if (username == 'admin' && password == '1234') {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => AdminDashboardPage()),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Username atau password salah')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +36,11 @@ class AdminLoginPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Admin Login', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFF41966F))),
+            Text('Admin Login',
+                style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF41966F))),
             SizedBox(height: 32),
             TextField(
               controller: usernameController,
@@ -27,7 +48,8 @@ class AdminLoginPage extends StatelessWidget {
                 hintText: 'Username',
                 filled: true,
                 fillColor: Colors.grey[300],
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                border:
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
               ),
             ),
             SizedBox(height: 16),
@@ -38,20 +60,20 @@ class AdminLoginPage extends StatelessWidget {
                 hintText: 'Password',
                 filled: true,
                 fillColor: Colors.grey[300],
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                border:
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
               ),
             ),
             SizedBox(height: 24),
             ElevatedButton(
-              onPressed: () {
-                // TODO: handle login logic
-              },
+              onPressed: () => _handleLogin(context),
               child: Text("Login"),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Color(0xFF41966F),
                 foregroundColor: Colors.white,
                 padding: EdgeInsets.symmetric(horizontal: 48, vertical: 14),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(24)),
               ),
             )
           ],
